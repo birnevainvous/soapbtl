@@ -4,12 +4,6 @@
 <xsd:import namespace="http://ws/" schemaLocation="http://localhost:8080/TimesheetWS/TimesheetSubWebService?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="findHistoryByWorkerId">
-<part name="parameters" element="tns:findHistoryByWorkerId"/>
-</message>
-<message name="findHistoryByWorkerIdResponse">
-<part name="parameters" element="tns:findHistoryByWorkerIdResponse"/>
-</message>
 <message name="login">
 <part name="parameters" element="tns:login"/>
 </message>
@@ -25,23 +19,31 @@
 <message name="Exception">
 <part name="fault" element="tns:Exception"/>
 </message>
-<message name="addInvoice">
-<part name="parameters" element="tns:addInvoice"/>
-</message>
-<message name="addInvoiceResponse">
-<part name="parameters" element="tns:addInvoiceResponse"/>
-</message>
 <message name="findAllInvoice">
 <part name="parameters" element="tns:findAllInvoice"/>
 </message>
 <message name="findAllInvoiceResponse">
 <part name="parameters" element="tns:findAllInvoiceResponse"/>
 </message>
+<message name="addInvoice">
+<part name="parameters" element="tns:addInvoice"/>
+</message>
+<message name="addInvoiceResponse">
+<part name="parameters" element="tns:addInvoiceResponse"/>
+</message>
+<message name="findAllEmployee">
+<part name="parameters" element="tns:findAllEmployee"/>
+</message>
+<message name="findAllEmployeeResponse">
+<part name="parameters" element="tns:findAllEmployeeResponse"/>
+</message>
+<message name="findHistoryByWorkerId">
+<part name="parameters" element="tns:findHistoryByWorkerId"/>
+</message>
+<message name="findHistoryByWorkerIdResponse">
+<part name="parameters" element="tns:findHistoryByWorkerIdResponse"/>
+</message>
 <portType name="TimesheetSubWebService">
-<operation name="findHistoryByWorkerId">
-<input wsam:Action="http://ws/TimesheetSubWebService/findHistoryByWorkerIdRequest" message="tns:findHistoryByWorkerId"/>
-<output wsam:Action="http://ws/TimesheetSubWebService/findHistoryByWorkerIdResponse" message="tns:findHistoryByWorkerIdResponse"/>
-</operation>
 <operation name="login">
 <input wsam:Action="http://ws/TimesheetSubWebService/loginRequest" message="tns:login"/>
 <output wsam:Action="http://ws/TimesheetSubWebService/loginResponse" message="tns:loginResponse"/>
@@ -51,26 +53,25 @@
 <output wsam:Action="http://ws/TimesheetSubWebService/timeSheetSubmitResponse" message="tns:timeSheetSubmitResponse"/>
 <fault message="tns:Exception" name="Exception" wsam:Action="http://ws/TimesheetSubWebService/timeSheetSubmit/Fault/Exception"/>
 </operation>
-<operation name="addInvoice">
-<input wsam:Action="http://ws/TimesheetSubWebService/addInvoiceRequest" message="tns:addInvoice"/>
-<output wsam:Action="http://ws/TimesheetSubWebService/addInvoiceResponse" message="tns:addInvoiceResponse"/>
-</operation>
 <operation name="findAllInvoice">
 <input wsam:Action="http://ws/TimesheetSubWebService/findAllInvoiceRequest" message="tns:findAllInvoice"/>
 <output wsam:Action="http://ws/TimesheetSubWebService/findAllInvoiceResponse" message="tns:findAllInvoiceResponse"/>
 </operation>
+<operation name="addInvoice">
+<input wsam:Action="http://ws/TimesheetSubWebService/addInvoiceRequest" message="tns:addInvoice"/>
+<output wsam:Action="http://ws/TimesheetSubWebService/addInvoiceResponse" message="tns:addInvoiceResponse"/>
+</operation>
+<operation name="findAllEmployee">
+<input wsam:Action="http://ws/TimesheetSubWebService/findAllEmployeeRequest" message="tns:findAllEmployee"/>
+<output wsam:Action="http://ws/TimesheetSubWebService/findAllEmployeeResponse" message="tns:findAllEmployeeResponse"/>
+</operation>
+<operation name="findHistoryByWorkerId">
+<input wsam:Action="http://ws/TimesheetSubWebService/findHistoryByWorkerIdRequest" message="tns:findHistoryByWorkerId"/>
+<output wsam:Action="http://ws/TimesheetSubWebService/findHistoryByWorkerIdResponse" message="tns:findHistoryByWorkerIdResponse"/>
+</operation>
 </portType>
 <binding name="TimesheetSubWebServicePortBinding" type="tns:TimesheetSubWebService">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="findHistoryByWorkerId">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="login">
 <soap:operation soapAction=""/>
 <input>
@@ -92,6 +93,15 @@
 <soap:fault name="Exception" use="literal"/>
 </fault>
 </operation>
+<operation name="findAllInvoice">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="addInvoice">
 <soap:operation soapAction=""/>
 <input>
@@ -101,7 +111,16 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="findAllInvoice">
+<operation name="findAllEmployee">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="findHistoryByWorkerId">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

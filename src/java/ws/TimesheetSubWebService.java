@@ -39,8 +39,6 @@ import notification.SendMailUtil;
 @WebService(serviceName = "TimesheetSubWebService")
 public class TimesheetSubWebService {
     
-    int idNV = 0;
-    String role = ""; 
     @WebMethod
     public EmployeeModel login(String username, String password){
         EmployeeModel emp = null;
@@ -56,8 +54,6 @@ public class TimesheetSubWebService {
         if (employeeList != null && !employeeList.isEmpty()) {
             //Dang nhap thanh cong
             Employee employee = employeeList.get(0);
-            idNV = employee.getId();
-            role = employee.getRole();
             emp = new EmployeeModel(employee.getId(), employee.getUsername(), employee.getPassword(), employee.getRole(), employee.getName(), employee.getEmail());
             
             for (Timesheet timesheet : employee.getTimesheetCollection()) {
@@ -80,7 +76,7 @@ public class TimesheetSubWebService {
     }
    
     @WebMethod
-    public String timeSheetSubmit(String startTime, String endTime, String task, String project ,int totalTime) throws Exception{
+    public String timeSheetSubmit(String startTime, String endTime, String task, String project ,int totalTime, int id, String role) throws Exception{
         EmployeeModel emp = null;
         //Mo connection toi db
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("TimesheetWSPU");
@@ -95,8 +91,7 @@ public class TimesheetSubWebService {
         }
         String workerEmail = "";
         String workerName = "";
-        int id;
-        id = idNV;
+ 
         Query q = em.createNamedQuery("Employee.timesheetSubmit", Employee.class);
         q.setParameter("id", id);
         List<Employee> employeeList = q.getResultList();
@@ -199,7 +194,7 @@ public class TimesheetSubWebService {
     }
     
     @WebMethod
-    public String addInvoice(String startDate, String endDate, String task, String project, int invoiceTime,int workerId, String clientName){
+    public String addInvoice(String startDate, String endDate, String task, String project, int invoiceTime,int workerId, String clientName, String role){
         //Mo connection toi db
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("TimesheetWSPU");
         EntityManager em = factory.createEntityManager();
@@ -246,11 +241,10 @@ public class TimesheetSubWebService {
     }
     
     @WebMethod
-    public List<History> findHistoryByWorkerId(){
+    public List<History> findHistoryByWorkerId(int id){
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("TimesheetWSPU");
         EntityManager em = factory.createEntityManager();
-        int id = 0;
-        id = idNV;
+       
         Query q = em.createNamedQuery("History.findByWorkerId", History.class);
         Query q2 = em.createNamedQuery("Employee.findById", Employee.class);
         q2.setParameter("id", id);
@@ -260,4 +254,13 @@ public class TimesheetSubWebService {
         return historyList;
     }
     
+    @WebMethod
+    public List<Employee> findAllEmployee(){
+        //Mo connection toi db
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("TimesheetWSPU");
+        EntityManager em = factory.createEntityManager();
+        Query q = em.createNamedQuery("Employee.findAll", Invoice.class);
+        List<Employee> employeeList = q.getResultList();
+        return employeeList;
+    }
 }
